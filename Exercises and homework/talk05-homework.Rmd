@@ -88,6 +88,39 @@ grades2 <- tibble( "Name" = c("Weihua Chen", "Mm Hu", "John Doe", "Jane Doe",
 
 ```{r}
 ## 代码写这里，并运行；
+library("tidyverse")
+grades2<-tibble("Name" = c("Weihua Chen", "Mm Hu", "John Doe", "Jane Doe",
+                             "Warren Buffet", "Elon Musk", "Jack Ma"),
+                  "Occupation" = c("Teacher", "Student", "Teacher", "Student", 
+                                   rep( "Entrepreneur", 3 ) ),
+                  "English" = sample( 60:100, 7 ),
+                  "ComputerScience" = sample(80:90, 7),
+                  "Biology" = sample( 50:100, 7),
+                  "Bioinformatics" = sample( 40:90, 7))
+knitr::kable(grades2)
+
+grades2.melted <- grades2 %>% 
+  gather( course, grade, -Name, -Occupation, na.rm = T )
+grades2_M<-grades2.melted %>% 
+  arrange( Name , -grade )
+grades2_M %>% 
+  group_by(Name) %>% 
+  summarise( Worst_Course=last(course) , Worst_Grade=last(grade))
+
+grades2_M2<-grades2.melted %>% 
+  group_by( Occupation ) %>%
+  summarise( Avg_Grade = mean(grade) ) %>%
+  arrange( -Avg_Grade )
+knitr::kable(grades2_M2)
+(grades_Occupation<-grades2_M2 %>% 
+  summarise(Best_Avg_Occuption=first(Occupation)))
+
+(grades2_M3<-grades2.melted %>%
+  group_by(course) %>%
+  summarise(avggrade=mean(grade)) %>%
+  arrange(-avggrade))
+
+
 
 ```
 
@@ -122,8 +155,6 @@ grades2 <- tibble( "Name" = c("Weihua Chen", "Mm Hu", "John Doe", "Jane Doe",
 ## 代码写这里，并运行；
 
 ```
-
-
 
 ### **使用`Theoph`变量做练习**
 

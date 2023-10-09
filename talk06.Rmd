@@ -29,6 +29,7 @@ knitr::knit_hooks$set(error = color_block('red'))
 ## 前情提要
 
 ### pipe
+
 -   pipe
 
 ### dplyr
@@ -44,8 +45,8 @@ knitr::knit_hooks$set(error = color_block('red'))
 
 ### tidyr
 
--   pivot_longer();  ## 代替 gather
--   pivot_wider(); ## 代替 spread
+-   pivot_longer(); \## 代替 gather
+-   pivot_wider(); \## 代替 spread
 
 # section 2: data wrangler - tidyr
 
@@ -56,7 +57,6 @@ knitr::knit_hooks$set(error = color_block('red'))
 The goal of tidyr is to help you create **tidy** data.
 
 ![dplyr logo](images/talk06/tidyr.png){height="50%"}
-
 
 ### more to read
 
@@ -87,7 +87,7 @@ devtools::install_github("tidyverse/tidyr")
 
 ## 宽数据 向 长数据 转变
 
-get data ready 
+get data ready
 
 \FontSmall
 
@@ -102,12 +102,12 @@ grades2;
 
 ### 优点：
 
--    自然，易理解；
+-   自然，易理解；
 
 ### 缺点：
 
--    不易处理；
--    稀疏时问题较大；
+-   不易处理；
+-   稀疏时问题较大；
 
 ## `宽数据` 向 `长数据` 转变
 
@@ -146,9 +146,7 @@ grades3_long <- grades2 %>%
                 values_drop_na = TRUE);
 ```
 
-
 `values_drop_na` 即可消除；
-
 
 ## 有 `NA` 值怎么办？cont.
 
@@ -197,7 +195,6 @@ knitr::kable( mini_iris);
 mini_iris.longer <- mini_iris %>% pivot_longer( - Species, names_to = "type", values_to = "dat" );
 knitr::kable( mini_iris.longer  );
 ```
-
 
 ## 长变宽
 

@@ -1,6 +1,7 @@
 ---
 title: "talk04 练习与作业"
 documentclass: ctexart
+
 output:
   rticles::ctex:
     fig_caption: yes
@@ -12,7 +13,9 @@ output:
     df_print: paged
 knit: (
   function(inputFile, encoding) { 
+
     pSubTitle <- 'talk04-homework'
+
     rmarkdown::render( 
       input       = inputFile, 
       encoding    = encoding, 
@@ -68,7 +71,7 @@ data1<-matrix(letters[1:20],nrow = 4,ncol = 5,byrow = T)
 save.image( file = "talk04-homework.RData" )
 rm(list=ls())
 load( file = "talk04-homework.RData" )
-rm(list = sample(ls(),2))
+rm(x,z)
 load( file = "talk04-homework.RData" )
 ```
 
@@ -92,7 +95,14 @@ load( file = "talk04-homework.RData" )
 
 ```{r}
 ## 代码写这里，并运行；
-
+x <- c("single", "married", "married", "single");
+x <- as.factor(x)
+x[ length(x) + 1 ] <- "single"
+x[ length(x) + 1 ] <- "married"
+#不行
+levels(x) <- c(levels(x), "widowed");
+x[ length(x) + 1 ] <- "widowed";
+str(x)
 ```
 
 ### **factors 改变**
@@ -107,7 +117,10 @@ load( file = "talk04-homework.RData" )
 
 ```{r}
 ## 代码写这里，并运行；
-
+v = c("a", "b", "a", "c", "b")
+v <- as.factor(v)
+levels(v) <-c("e","b","c")
+show(v)
 ```
 
 -   比较改变前后的 `v` 的内容，改变levels 的操作使 `v` 发生了什么变化？
@@ -122,7 +135,10 @@ load( file = "talk04-homework.RData" )
 
 ```{r}
 ## 代码写这里，并运行；
-
+(K<-as.factor(sample(LETTERS[1:26],3)))
+(L<-as.factor(sample(LETTERS[1:26],3)))
+KL<-factor(c(K,L))
+show(KL)
 ```
 
 ------------------------------------------------------------------------
@@ -135,7 +151,13 @@ load( file = "talk04-homework.RData" )
 
 ```{r}
 ## 代码写这里，并运行；
-
+mon <- c("Mar","Nov","Mar","Aug","Sep","Jun","Nov","Nov","Oct","Jun","May","Sep","Dec","Jul","Nov")
+month_levels <- c(
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+)
+mon<-factor(mon, levels = month_levels)
+sort(mon)
 ```
 
 ------------------------------------------------------------------------
@@ -148,7 +170,24 @@ load( file = "talk04-homework.RData" )
 
 ```{r}
 ## 代码写这里，并运行；
+library(forcats)
+df<- forcats::gss_cat
+show(df)
 
+#fct_inorder(): 按照第一次出现的顺序
+df$marital <- as.factor(df$marital)
+fct_inorder(df$marital)
+str(df$marital)
+
+#fct_infreq(): 按照每个水平出现的频率（从大到小）
+df$race <- as.factor(df$race)
+fct_infreq(df$race)
+str(df$race)
+
+#fct_inseq(): 按照数字大小
+df$age <- as.factor(df$age)
+fct_inseq(df$age)
+str(df$age)
 ```
 
 ## 练习与作业3：用 mouse genes 数据做图
@@ -170,5 +209,6 @@ load( file = "talk04-homework.RData" )
 
 ```{r}
 ## 代码写这里，并运行；
-
+library(ggplot2)
+library(readr)
 ```
